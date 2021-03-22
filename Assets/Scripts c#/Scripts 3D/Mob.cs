@@ -38,9 +38,7 @@ public class Mob : MonoBehaviour
     {
         all_UI = GameObject.Find("ALL_UI").GetComponent<All_UI>();
 
-        if (currentMobState == mobStates.MOB_QUAD)
-            target = fastPatrolPoints[0];
-        else
+       
             target = patrolPoints[1];
     }
 

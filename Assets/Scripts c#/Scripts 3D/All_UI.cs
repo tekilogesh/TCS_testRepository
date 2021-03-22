@@ -6,11 +6,13 @@ using UnityEngine.SceneManagement;
 public class All_UI : MonoBehaviour
 {
     
-    public bool gamePaused;
+    public bool gamePaused;// bool to pause and unpause gameplay.
 
-    public bool levelWon;
+    public bool levelWon;// bool to finish the level.
 
-    public bool gameOver;
+    public bool gameOver;// bool to finish the game.
+
+    public bool instructionsB;
 
     public KeyCode pauseKey;
 
@@ -20,6 +22,7 @@ public class All_UI : MonoBehaviour
 
     public GameObject gameOverUI;
 
+    public GameObject instructionsUI;
     void Start()
     {
 
@@ -45,6 +48,18 @@ public class All_UI : MonoBehaviour
                 levelWonUI.SetActive(false);
             }
         }
+        else
+        {
+            if(instructionsB )
+            {
+                instructionsUI.SetActive(true);
+            }
+            else
+            {
+                instructionsUI.SetActive(false);
+            }
+
+        }
         if(gameOver && !gameOverUI.activeInHierarchy)
         {
             gameOverUI.SetActive(true);
@@ -53,6 +68,15 @@ public class All_UI : MonoBehaviour
 
 
 
+    }
+    public void f_showInstructions()
+    {
+        instructionsB = true;
+    }
+
+    public void f_hideInstructions()
+    {
+        instructionsB = false;
     }
 
     public void Play()
@@ -84,8 +108,11 @@ public class All_UI : MonoBehaviour
 
     public void f_nextLevel()
     {
-      
+      if(SceneManager.GetActiveScene().buildIndex <3)
         f_loadScene(SceneManager.GetActiveScene().buildIndex + 1);
+      else
+            f_loadScene(0);
+
     }
     public void f_loadmenu()
     {
