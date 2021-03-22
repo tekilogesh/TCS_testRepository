@@ -35,6 +35,8 @@ public class SnowBall : MonoBehaviour
 
     public LayerMask mobLayer;// Layer to detect the mob.
 
+    public All_UI ui;
+
     void Start()
     { 
     }
@@ -44,6 +46,11 @@ public class SnowBall : MonoBehaviour
     {
         transform.position = new Vector3(snowBallPoint.position.x,snowBallPoint.position.y+transform.localScale.y/2,snowBallPoint.position.z + transform.localScale.z/2);
         Shoot();
+
+        if(transform.localScale.magnitude <=0.2f)
+        {
+            ui.gameOver = true;
+        }
     }
     // The below function is to alter the size of the snow ball.
     public void AlterSize(float _Value)

@@ -10,13 +10,15 @@ public class All_UI : MonoBehaviour
 
     public bool levelWon;
 
+    public bool gameOver;
+
     public KeyCode pauseKey;
 
     public GameObject gamePauseUI;
 
     public GameObject levelWonUI;
 
-    
+    public GameObject gameOverUI;
 
     void Start()
     {
@@ -43,6 +45,13 @@ public class All_UI : MonoBehaviour
                 levelWonUI.SetActive(false);
             }
         }
+        if(gameOver && !gameOverUI.activeInHierarchy)
+        {
+            gameOverUI.SetActive(true);
+            Time.timeScale = 0f;
+        }
+
+
 
     }
 

@@ -28,7 +28,8 @@ public class snowbullets : MonoBehaviour
         {
             if(other.gameObject.CompareTag("Snow"))
             {
-                other.GetComponent<SnowBall>().AlterSize(damageOnSnowBall);
+                other.GetComponent<SnowBall>().AlterSize(-damageOnSnowBall);
+                
             }
         }
         else

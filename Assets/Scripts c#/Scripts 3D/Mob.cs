@@ -9,13 +9,17 @@ public class Mob : MonoBehaviour
     
     public Transform[] patrolPoints;// patrol points for the mob to move in between.
 
+    public Transform[] fastPatrolPoints;
+
     [SerializeField] Transform target;
 
     public bool isDead;
 
     public All_UI all_UI;
 
-    public Transform[] fireports;
+    public Transform fireports;
+
+    public Transform[] fireportsArray;
 
     public float fireRate;
     [SerializeField] float currentFirerate;
@@ -33,7 +37,11 @@ public class Mob : MonoBehaviour
     void Start()
     {
         all_UI = GameObject.Find("ALL_UI").GetComponent<All_UI>();
-        target = patrolPoints[1];
+
+        if (currentMobState == mobStates.MOB_QUAD)
+            target = fastPatrolPoints[0];
+        else
+            target = patrolPoints[1];
     }
 
    
@@ -55,8 +63,9 @@ public class Mob : MonoBehaviour
                 fire();
                 break;
             case mobStates.MOB_FAST:
-                move();
                 currentSpeed = moveSpeed * 4;
+                if (canShoot)
+                    firemoreAmmo();
                 break;
             default:
                 break;
@@ -69,8 +78,6 @@ public class Mob : MonoBehaviour
         {
             Death();
         }
-
-
     }
     void move()
     {
@@ -83,15 +90,54 @@ public class Mob : MonoBehaviour
         }
         transform.position = Vector3.MoveTowards(transform.position, target.position, currentSpeed * Time.deltaTime);
     }
+
+    void teleport()
+    {
+        //if (Vector3.Distance(transform.position, target.position) < 0.2f)
+        //{
+        //    if (target == fastPatrolPoints[0])
+        //        target = fastPatrolPoints[1];
+        //    else if (target == fastPatrolPoints[1])
+        //        target = fastPatrolPoints[2];
+        //    else if (target == fastPatrolPoints[2])
+        //        target = fastPatrolPoints[3];
+        //    else if (target == fastPatrolPoints[3])
+        //        target = fastPatrolPoints[4];
+        //    else if (target == fastPatrolPoints[4])
+        //        target = fastPatrolPoints[5];
+        //    else if (target == fastPatrolPoints[5])
+        //        target = fastPatrolPoints[6];
+        //    else if (target == fastPatrolPoints[6])
+        //        target = fastPatrolPoints[7];
+        //    else if (target == fastPatrolPoints[7])
+        //        target = fastPatrolPoints[8];
+        //    else if (target == fastPatrolPoints[8])
+        //        target = fastPatrolPoints[9];
+            
+        //}
+    }
     void fire()
     {
-        if(currentFirerate<=0)
+        if(currentFirerate<=0 && fireports)
         {
             currentFirerate = fireRate;
-            for (int i = 0; i <fireports.Length; i++)
+           
             {
-                GameObject temp = Instantiate(enemybulletsPrefab, fireports[i].position, fireports[i].rotation);
-                temp.transform.forward = fireports[i].forward;
+                GameObject temp = Instantiate(enemybulletsPrefab, fireports.position, fireports.rotation);
+   
+                Destroy(temp, 2f);
+            }
+        }
+    }
+
+    void firemoreAmmo()
+    {
+        if(currentFirerate<=0 && fireportsArray.Length>0)
+        {
+            currentFirerate = fireRate;
+            for (int i = 0; i < fireportsArray.Length; i++)
+            {
+                GameObject temp = Instantiate(enemybulletsPrefab, fireportsArray[i].position, fireportsArray[i].rotation);
                 Destroy(temp, 2f);
             }
         }

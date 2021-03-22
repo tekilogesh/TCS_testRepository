@@ -24,9 +24,9 @@ public class PlayerControls : MonoBehaviour
 
     public GameObject Sphere;// snow ball gameobject.
 
-    public float clampX; // float to clamp the X potition of the player.
+    public float clampX; // float to clamp the X position of the player.
 
-    public float moveValue;
+    public float moveValue;// float to calculate input for horizontal.
     void Start()
     {
         Time.timeScale = 1;
