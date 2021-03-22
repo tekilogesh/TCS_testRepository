@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerControls : MonoBehaviour
 {
-    public static PlayerControls pc_instance;
+    public static PlayerControls pc_instance;// making sure only one instance is available.
 
     private void Awake()
     {

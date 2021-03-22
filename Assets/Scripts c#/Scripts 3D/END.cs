@@ -13,6 +13,8 @@ public class END : MonoBehaviour
     Vector3 startDirection;
 
     bool switchedCamPostion;
+
+    public Mob mobScript;
     void Start()
     {
         startPostion = Camera.main.transform.position;
@@ -44,6 +46,7 @@ public class END : MonoBehaviour
             {
                 playerHasReachedEnd = true;
             }
+            mobScript.canShoot = true;
         }
     }
 }

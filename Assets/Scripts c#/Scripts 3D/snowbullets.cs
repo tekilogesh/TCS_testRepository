@@ -8,6 +8,9 @@ public class snowbullets : MonoBehaviour
 
     public float damageOnenemy = 5f;// Damage on mob during collision.
 
+    public float damageOnSnowBall = 0.05f;// Damage on snow ball during collision.
+
+    public bool forEnemy;
     void Start()
     {
         
@@ -21,11 +24,21 @@ public class snowbullets : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("Mob"))
+        if (forEnemy)
         {
-            Debug.Log("Mob hit");
-            gameObject.SetActive(false);
-            other.GetComponent<MobHealth>().DecreaseHealth(damageOnenemy);
+            if(other.gameObject.CompareTag("Snow"))
+            {
+                other.GetComponent<SnowBall>().AlterSize(damageOnSnowBall);
+            }
+        }
+        else
+        {
+            if (other.gameObject.CompareTag("Mob"))
+            {
+                Debug.Log("Mob hit");
+                gameObject.SetActive(false);
+                other.GetComponent<MobHealth>().DecreaseHealth(damageOnenemy);
+            }
         }
     }
 }

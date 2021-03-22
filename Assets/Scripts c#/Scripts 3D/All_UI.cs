@@ -5,19 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class All_UI : MonoBehaviour
 {
-    public static All_UI ui_instance;
-
-    private void Awake()
-    {
-        if(ui_instance!=null)
-        {
-            ui_instance = this;
-        }
-        else
-        {
-            Destroy(this);
-        }
-    }
+    
     public bool gamePaused;
 
     public bool levelWon;
@@ -38,35 +26,39 @@ public class All_UI : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(pauseKey) && !gamePaused) 
+
+
+        if (SceneManager.GetActiveScene().buildIndex > 0)
         {
-            Pause();
-        }
-        
-        if(levelWon && !levelWonUI.activeInHierarchy)
-        {
-            levelWonUI.SetActive(true);
-        }
-        else if(!levelWon && levelWonUI.activeInHierarchy)
-        {
-            levelWonUI.SetActive(false);
+            if (Input.GetKeyDown(pauseKey) && !gamePaused)
+            {
+                f_Pause();
+            }
+            if (levelWon && !levelWonUI.activeInHierarchy)
+            {
+                levelWonUI.SetActive(true);
+            }
+            else if (!levelWon && levelWonUI.activeInHierarchy)
+            {
+                levelWonUI.SetActive(false);
+            }
         }
 
     }
 
     public void Play()
     {
-        loadScene(1);
+        f_loadScene(1);
     }
 
-    public void Pause()
+    public void f_Pause()
     {
         Time.timeScale = 0;
         gamePauseUI.SetActive(true);
         gamePaused = true;
     }
 
-    public void resume()
+    public void f_resume()
     {
         if(gamePaused)
         {
@@ -76,17 +68,27 @@ public class All_UI : MonoBehaviour
         }
     }    
 
-    public void loadScene(int sceneNumber)
+    public void f_loadScene(int sceneNumber)
     {
         SceneManager.LoadScene(sceneNumber);
     }
 
-    public void reloadScene()
+    public void f_nextLevel()
     {
-        loadScene(SceneManager.GetActiveScene().buildIndex);
+      
+        f_loadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+    public void f_loadmenu()
+    {
+        f_loadScene(0);
     }
 
-    public void Quit()
+    public void f_reloadScene()
+    {
+        f_loadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    
+    public void f_Quit()
     {
         Application.Quit();
     }
