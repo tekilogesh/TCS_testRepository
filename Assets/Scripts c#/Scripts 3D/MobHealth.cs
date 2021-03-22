@@ -28,4 +28,11 @@ public class MobHealth : MonoBehaviour
     {
         currentHealth -= _damage;
     }
+
+    private void OnDisable()
+    {
+        currentHealth = maxHealth;
+    }
+
+
 }

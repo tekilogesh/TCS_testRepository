@@ -79,5 +79,13 @@ public class SnowBall : MonoBehaviour
             AlterSize(decreaseValue);
             Destroy(collision.gameObject);
         }
+
+        if(collision.gameObject.CompareTag("Mob"))
+        {
+            AlterSize(decreaseValue);
+            collision.GetComponent<Mob>().isDead = true;
+        }
     }
+
+
 }

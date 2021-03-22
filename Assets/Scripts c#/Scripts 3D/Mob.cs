@@ -33,14 +33,20 @@ public class Mob : MonoBehaviour
         }
         else
         {
-
+            Death();
         }
         
     }
 
     void Death()
     {
+        All_UI.ui_instance.
         gameObject.SetActive(false);
+    }
+
+    private void OnDisable()
+    {
+        isDead = false;       
     }
 
 

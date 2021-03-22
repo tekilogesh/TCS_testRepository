@@ -26,24 +26,24 @@ public class PlayerControls : MonoBehaviour
 
     public float clampX; // float to clamp the X potition of the player.
 
-    public float moveX;
+    public float moveValue;
     void Start()
     {
-        
+        Time.timeScale = 1;
     }
 
     
     void Update()
     {
-        moveX = Input.GetAxisRaw("Horizontal");
+        moveValue = Input.GetAxisRaw("Horizontal");
         if (canAutoMove)
         {
-            transform.Translate(new Vector3(moveX * moveSpeed, 0, moveSpeed) * Time.deltaTime);
+            transform.Translate(new Vector3(moveValue * moveSpeed, 0, moveSpeed) * Time.deltaTime);
             transform.position = new Vector3(Mathf.Clamp(transform.position.x, -clampX, clampX), transform.position.y, transform.position.z);
         }
         else
         {
-            transform.Translate(new Vector3(moveX * moveSpeed, 0, 0) * Time.deltaTime);
+            transform.Translate(new Vector3(moveValue * moveSpeed, 0, 0) * Time.deltaTime);
             transform.position = new Vector3(Mathf.Clamp(transform.position.x, -clampX, clampX), transform.position.y, transform.position.z);
         }
     }
